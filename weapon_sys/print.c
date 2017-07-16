@@ -17,9 +17,7 @@ void Print_all(void){
     printf("%-15s %-12s %-18s %-15s %-15s %-15s %-15s %-15s\n\n", "name", "address", "designer", "power", "portability", "precision", "stability", "rate");
     pHead = read_from_file();  //读取文件信息
     p = pHead->next;
-int i=0;
     while(p != NULL){
-printf("i1 = %d\n", ++i);
         printf("%-15s %-12s %-18s %-15d %-15d %-15d %-15d %-15d\n",  p->name, p->addr, p->designer, p->wei, p->bian, p->jing, p->wen, p->she);
         p = p->next;
     }

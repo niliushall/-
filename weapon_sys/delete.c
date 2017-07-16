@@ -77,7 +77,7 @@ void delete_name(void)
         exit(0);
     }
     p = pHead->next;
-    while(p->next != NULL)
+    while(p != NULL)
     {
         fprintf(fp, "%s %s %s %d %d %d %d %d\n",  p->name, p->addr, p->designer, p->wei, p->bian, p->jing, p->wen, p->she);
         p = p->next;
@@ -85,6 +85,7 @@ void delete_name(void)
     fclose(fp);
 
     printf("\n\n已删除, 按任意键继续...\n");
+    getchar();
     getchar();
     return;
 }
@@ -133,7 +134,7 @@ void delete_addr(void)
         exit(0);
     }
     p = pHead->next;
-    while(p->next != NULL)
+    while(p != NULL)
     {
         fprintf(fp, "%s %s %s %d %d %d %d %d\n",  p->name, p->addr, p->designer, p->wei, p->bian, p->jing, p->wen, p->she);
         p = p->next;
@@ -141,6 +142,7 @@ void delete_addr(void)
     fclose(fp);
 
     printf("\n\n已删除, 按任意键继续...\n");
+    getchar();
     getchar();
     return;
 }
@@ -155,7 +157,7 @@ void delete_designer(void)
 
     pHead = read_from_file();
 
-    printf("请输入要删除的枪械名称:\n");
+    printf("请输入要删除的枪械设计者:\n");
     fflush(stdin);
     scanf("%s", designer);
     system("clear");
@@ -190,7 +192,7 @@ void delete_designer(void)
         exit(0);
     }
     p = pHead->next;
-    while(p->next != NULL)
+    while(p != NULL)
     {
         fprintf(fp, "%s %s %s %d %d %d %d %d\n",  p->name, p->addr, p->designer, p->wei, p->bian, p->jing, p->wen, p->she);
         p = p->next;

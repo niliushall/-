@@ -1,6 +1,6 @@
 #include "myhead.h"
 
-/*´´½¨Á´±í*/
+/*åˆ›å»ºé“¾è¡¨*/
 firearms *Create (void)
 {
     FILE *fp;
@@ -8,11 +8,11 @@ firearms *Create (void)
     char choice;
     firearms *pHead = NULL, *pEnd = NULL, *pNew = NULL;
 
-    system("cls");//ÇåÆÁ
-    getchar();//È¥µôÉÏ´ÎÊäÈëµÄ'\n'
+    system("clear");//æ¸…å±
+    getchar();//åŽ»æŽ‰ä¸Šæ¬¡è¾“å…¥çš„'\n'
 
-    /*¾¯¸æÐÅÏ¢*/
-    printf("ÈôÖ®Ç°ÒÑ´æ´¢ÐÅÏ¢£¬¸Ã²Ù×÷½«É¾³ýÖ®Ç°´æ´¢µÄÐÅÏ¢¡£¼ÌÐø(y/n)?\n");
+    /*è­¦å‘Šä¿¡æ¯*/
+    printf("è‹¥ä¹‹å‰å·²å­˜å‚¨ä¿¡æ¯ï¼Œè¯¥æ“ä½œå°†åˆ é™¤ä¹‹å‰å­˜å‚¨çš„ä¿¡æ¯ã€‚ç»§ç»­(y/n)?\n");
     scanf("%c", &choice);
 
     if(choice == 'n' || choice == 'N')
@@ -20,7 +20,7 @@ firearms *Create (void)
     else if(choice == 'y' || choice == 'Y')
         ;
     else{
-        printf("ÊäÈë´íÎó,°´ÈÎÒâ¼ü¼ÌÐø...\n");
+        printf("è¾“å…¥é”™è¯¯,æŒ‰ä»»æ„é”®ç»§ç»­...\n");
         getchar();
         getchar();
         exit(0);
@@ -29,44 +29,43 @@ firearms *Create (void)
     fp = fopen("information.txt", "wt");
     if(fp == NULL)
     {
-        printf("ÎÄ¼þ´ò¿ª³ö´í£¬ °´ÈÎÒâ¼ü¼ÌÐø...\n");
+        printf("æ–‡ä»¶æ‰“å¼€å‡ºé”™ï¼Œ æŒ‰ä»»æ„é”®ç»§ç»­...\n");
         getchar();
         getchar();
         exit(0);
     }
 
-    system("cls");//ÇåÆÁ
+    system("clear");//æ¸…å±
 
-    printf("ÇëÊäÈëÒªÂ¼ÈëÇ¹ÐµµÄÖÖÊý: ");
+    printf("è¯·è¾“å…¥è¦å½•å…¥æžªæ¢°çš„ç§æ•°: ");
     scanf("%d", &n);
 
     do{
         i++;
         pNew = (firearms *)malloc(sizeof(firearms));
 
-        printf("\nÇëÊäÈëµÚ%dÖÖÇ¹ÐµµÄÐÅÏ¢:", i);
+        printf("\nè¯·è¾“å…¥ç¬¬%dç§æžªæ¢°çš„ä¿¡æ¯:", i);
 
-        /*Â¼ÈëÐÅÏ¢*/
-        printf("\n\nÃû³Æ: ");
+        /*å½•å…¥ä¿¡æ¯*/
+        printf("\n\nåç§°: ");
         scanf("%s", pNew->name);
-        printf("²úµØ: ");
+        printf("äº§åœ°: ");
         scanf("%s", pNew->addr);
-        printf("Éè¼ÆÕß: ");
+        printf("è®¾è®¡è€…: ");
         scanf("%s", pNew->designer);
-        printf("ÍþÁ¦: ");
+        printf("å¨åŠ›: ");
         scanf("%d", &pNew->wei);
-        printf("±ãÐ¯: ");
+        printf("ä¾¿æº: ");
         scanf("%d", &pNew->bian);
-        printf("¾«×¼: ");
+        printf("ç²¾å‡†: ");
         scanf("%d", &pNew->jing);
-        printf("ÎÈ¶¨: ");
+        printf("ç¨³å®š: ");
         scanf("%d", &pNew->wen);
-        printf("ÉäËÙ: ");
+        printf("å°„é€Ÿ: ");
         scanf("%d", &pNew->she);
 
-        /*Ð´ÈëÎÄ¼þ*/
+        /*å†™å…¥æ–‡ä»¶*/
         fprintf(fp, "%s %s %s %d %d %d %d %d\n",  pNew->name, pNew->addr, pNew->designer, pNew->wei, pNew->bian, pNew->jing, pNew->wen, pNew->she);
-
         if(i == 1){
             pHead = pNew;
             pEnd = pNew;
@@ -79,22 +78,22 @@ firearms *Create (void)
 
     pNew->next = NULL;
 
-    printf("ÎÄ¼þ´´½¨³É¹¦!   °´ÈÎÒâ¼ü¼ÌÐø...\n");
+    printf("æ–‡ä»¶åˆ›å»ºæˆåŠŸ!   æŒ‰ä»»æ„é”®ç»§ç»­...\n");
     getchar();
     getchar();
-    system("cls");
-    fclose(fp);//¹Ø±ÕÎÄ¼þ
+    system("clear");
+    fclose(fp);//å…³é—­æ–‡ä»¶
 
     return pHead;
 }
 
-/*´ÓÎÄ¼þ¶ÁÈ¡²¢´´½¨Á´±í*/
+/*ä»Žæ–‡ä»¶è¯»å–å¹¶åˆ›å»ºé“¾è¡¨*/
 firearms *read_from_file(void){
     FILE *fp;
     firearms *pHead, *pNew, *pEnd;
     pHead = (firearms *)malloc(sizeof(firearms));
     if(pHead == NULL){
-        printf("ÄÚ´æ¿Õ¼äÉêÇëÊ§°Ü, °´ÈÎÒâ¼ü¼ÌÐø...\n");
+        printf("å†…å­˜ç©ºé—´ç”³è¯·å¤±è´¥, æŒ‰ä»»æ„é”®ç»§ç»­...\n");
         getchar();
         getchar();
         exit(0);
@@ -107,31 +106,27 @@ firearms *read_from_file(void){
 
     if(fp == NULL)
     {
-        printf("ÎÄ¼þ´ò¿ª³ö´í£¬ °´ÈÎÒâ¼ü¼ÌÐø...\n");
+        printf("æ–‡ä»¶æ‰“å¼€å‡ºé”™ï¼Œ æŒ‰ä»»æ„é”®ç»§ç»­...\n");
         getchar();
         getchar();
         exit(0);
     }
-int i=0;
+    int i=0;
     while(!feof(fp)){
         pNew = (firearms *)malloc(sizeof(firearms));
-
         if(pNew == NULL){
-            printf("ÉêÇëÄÚ´æ¿Õ¼äÊ§°Ü, °´ÈÎÒâ¼ü¼ÌÐø...\n");
+            printf("ç”³è¯·å†…å­˜ç©ºé—´å¤±è´¥, æŒ‰ä»»æ„é”®ç»§ç»­...\n");
             getchar();
             getchar();
             exit(0);
         }
 
-        /*¶ÁÈ¡ÐÅÏ¢,ÓÃfscanfº¯Êý*/
-        if(fscanf(fp, "%s%s%s%d%d%d%d%d", pNew->name, pNew->addr, pNew->designer, &pNew->wei, &pNew->bian, &pNew->jing, &pNew->wen, &pNew->she) != EOF)
-        {
-            pEnd->next = pNew;
-            pEnd = pNew;
-        }
+    fscanf(fp, "%s %s %s %d %d %d %d %d\n",  pNew->name, pNew->addr, pNew->designer, &pNew->wei, &pNew->bian, &pNew->jing, &pNew->wen, &pNew->she);
+    pEnd->next = pNew;
+    pEnd = pNew;
     }
-
-    fclose(fp);//¹Ø±ÕÎÄ¼þ
+    pNew->next = NULL;
+    fclose(fp);//å…³é—­æ–‡ä»¶
     return pHead;
 }
 

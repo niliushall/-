@@ -6,7 +6,7 @@ void Delete(void)
 
     do
     {
-        system("cls");
+        system("clear");
         printf("\t\t\t=========================================\n");
         printf("\t\t\t===                                   ===\n");
         printf("\t\t\t===          1.按名称删除             ===\n");
@@ -45,8 +45,8 @@ void delete_name(void)
 
     printf("请输入要删除的枪械名称:\n");
     fflush(stdin);
-    gets(name);
-    system("cls");
+    scanf("%s", name);
+    system("clear");
 
     p = pHead->next;
     pEnd = pHead;
@@ -101,8 +101,8 @@ void delete_addr(void)
 
     printf("请输入要删除的枪械产地:\n");
     fflush(stdin);
-    gets(addr);
-    system("cls");
+    scanf("%s", addr);
+    system("clear");
 
     p = pHead->next;
     pEnd = pHead;
@@ -157,8 +157,8 @@ void delete_designer(void)
 
     printf("请输入要删除的枪械名称:\n");
     fflush(stdin);
-    gets(designer);
-    system("cls");
+    scanf("%s", designer);
+    system("clear");
 
     p = pHead->next;
     pEnd = pHead;
@@ -176,6 +176,7 @@ void delete_designer(void)
     if(!flag)
     {
         printf("\n\n文件内没有该枪械信息, 按任意键继续...\n");
+        getchar();
         getchar();
         return;
     }
@@ -197,6 +198,7 @@ void delete_designer(void)
     fclose(fp);
 
     printf("\n\n已删除, 按任意键继续...\n");
+    getchar();
     getchar();
     return;
 }

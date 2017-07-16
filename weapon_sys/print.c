@@ -6,25 +6,27 @@ void Print_all(void){
 
     fp = fopen("information.txt", "rt");
     if(fp == NULL){
-        printf("´ò¿ªÎÄ¼ş³ö´í£¬ °´ÈÎÒâ¼ü¼ÌĞø...\n");
+        printf("æ‰“å¼€æ–‡ä»¶å‡ºé”™ï¼Œ æŒ‰ä»»æ„é”®ç»§ç»­...\n");
         getchar();
         getchar();
         exit(0);
     }
 
-    system("cls");
-    /*Êä³öĞÅÏ¢*/
-    printf("%-15s%-12s%-18s%-6s%-6s%-6s%-6s%-6s\n\n", "Ç¹ĞµÃû³Æ", "Ç¹Ğµ²úµØ", "Éè¼ÆÕß", "ÍşÁ¦", "±ãĞ¯", "¾«×¼", "ÎÈ¶¨", "ÉäËÙ");
-    pHead = read_from_file();  //¶ÁÈ¡ÎÄ¼şĞÅÏ¢
+    system("clear");
+    /*è¾“å‡ºä¿¡æ¯*/
+    printf("%-15s %-12s %-18s %-15s %-15s %-15s %-15s %-15s\n\n", "name", "address", "designer", "power", "portability", "precision", "stability", "rate");
+    pHead = read_from_file();  //è¯»å–æ–‡ä»¶ä¿¡æ¯
     p = pHead->next;
-
+int i=0;
     while(p != NULL){
-        printf("%-15s%-12s%-18s%-6d%-6d%-6d%-6d%-6d\n",  p->name, p->addr, p->designer, p->wei, p->bian, p->jing, p->wen, p->she);
+printf("i1 = %d\n", ++i);
+        printf("%-15s %-12s %-18s %-15d %-15d %-15d %-15d %-15d\n",  p->name, p->addr, p->designer, p->wei, p->bian, p->jing, p->wen, p->she);
         p = p->next;
     }
 
     fclose(fp);
 
-    printf("\n\n\nÎÄ¼şÄÚÈİÒÑÈ«²¿Êä³ö£¬ °´ÈÎÒâ¼ü¼ÌĞø...\n");
-    getch();
+    printf("\n\n\næ–‡ä»¶å†…å®¹å·²å…¨éƒ¨è¾“å‡ºï¼Œ æŒ‰ä»»æ„é”®ç»§ç»­...\n");
+    getchar();
+    getchar();
 }

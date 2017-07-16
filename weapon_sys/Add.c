@@ -12,7 +12,8 @@ firearms *Add (void)//尾插法
     if(fp == NULL)
     {
         printf("文件打开错误, 按任意键继续...\n");
-        getch();
+        fflush(stdin);
+        getchar();
         exit(0);
     }
 
@@ -20,13 +21,13 @@ firearms *Add (void)//尾插法
         pEnd = pEnd->next;
     p = pEnd;
 
-    system("cls");
+    system("clear");
     printf("请输入要添加信息的枪械个数:\n");
     scanf("%d" ,&n);
 
     do
     {
-        system("cls");
+        system("clear");
         pNew = (firearms *)malloc(sizeof(firearms));
         printf("请输入第%d个添加信息:\n\n", ++i);
 
@@ -59,5 +60,10 @@ firearms *Add (void)//尾插法
     }
 
     fclose(fp);
+
+    printf("信息添加成功，按任意键继续键继续...\n");
+    getchar();
+    getchar();
+
     return pHead;
 }

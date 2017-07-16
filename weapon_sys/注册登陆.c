@@ -1,37 +1,35 @@
 #include "myhead.h"
 
-/*µÇÂ½*/
+/*ç™»é™†*/
 void logIn(void)
 {
     int i = 0, flag = 0;;
-    char ch, name[NAME_MAX], password[PASSWD_MAX], tname[NAME_MAX], tpasswd[PASSWD_MAX];
+    char ch, name[NAME_MAX], *password, tname[NAME_MAX], tpasswd[PASSWD_MAX];
     FILE *fp;
     fp = fopen("User.txt", "rt");
     if(fp == NULL)
     {
-        printf("\nÎÄ¼ş´ò¿ª´íÎó....\n");
+        printf("\næ–‡ä»¶æ‰“å¼€é”™è¯¯....\n");
         exit(0);
     }
 
-    printf("ÇëÊäÈëÓÃ»§Ãû:");
+    printf("è¯·è¾“å…¥ç”¨æˆ·å:");
     scanf("%s", name);
 
     while(fscanf(fp, "%s%s", tname, tpasswd) != EOF)
     {
-        if(!strcmp(tname, name))//´æÔÚ¸ÃÓÃ»§
+        if(!strcmp(tname, name))//å­˜åœ¨è¯¥ç”¨æˆ·
         {
             flag = 1;
             do
             {
                 i++;
-                printf("ÇëÊäÈëÃÜÂë:");
-                passwd_input(password);
-
-                if(!strcmp(password, tpasswd))//µÇÂ½³É¹¦
+                password = getpass("è¯·è¾“å…¥å¯†ç :\n");
+                if(!strcmp(password, tpasswd))//ç™»é™†æˆåŠŸ
                     menu_main();
                 else if(i<3)
                 {
-                    printf("\nÃÜÂë´íÎó!¼ÌĞø(y/n)£¿");
+                    printf("\nå¯†ç é”™è¯¯!ç»§ç»­(y/n)ï¼Ÿ");
                     getchar();
                     scanf("%c", &ch);
 
@@ -41,16 +39,16 @@ void logIn(void)
                         ;
                     else
                     {
-                        printf("\nÊäÈë´íÎó,°´ÈÎÒâ¼ü·µ»Ø...\n");
+                        printf("\nè¾“å…¥é”™è¯¯,æŒ‰ä»»æ„é”®è¿”å›...\n");
                         getchar();
                         getchar();
-                        i--;//ÊäÈëÅĞ¶ÏÌõ¼ş³ö´í£¬´Ë´¦²»¼ÆÊı
+                        i--;//è¾“å…¥åˆ¤æ–­æ¡ä»¶å‡ºé”™ï¼Œæ­¤å¤„ä¸è®¡æ•°
                     }
                 }
 
                 if(i > 2)
                 {
-                    printf("\nÊäÈë´ÎÊı¹ı¶à£¬°´ÈÎÒâ¼ü·µ»Ø...\n");
+                    printf("\nè¾“å…¥æ¬¡æ•°è¿‡å¤šï¼ŒæŒ‰ä»»æ„é”®è¿”å›...\n");
                     getchar();
                     getchar();
                     return;
@@ -61,7 +59,7 @@ void logIn(void)
 
     if(!flag)
     {
-        printf("\n²éÎŞ´ËÈË£¬°´ÈÎÒâ¼ü¼ÌĞø...\n");
+        printf("\næŸ¥æ— æ­¤äººï¼ŒæŒ‰ä»»æ„é”®ç»§ç»­...\n");
         getchar();
         getchar();
         return;
@@ -70,69 +68,72 @@ void logIn(void)
     fclose(fp);
 }
 
-/*×¢²áĞÅÏ¢*/
+/*æ³¨å†Œä¿¡æ¯*/
 void Register(void)
 {
     FILE *fp;
-    char name[NAME_MAX], passwd[PASSWD_MAX], tname[NAME_MAX], tpasswd[PASSWD_MAX];
+    char t[PASSWD_MAX];
+    char name[NAME_MAX], *passwd, tname[NAME_MAX], *tpasswd;
     fp = fopen("User.txt", "at+");
 
     if(fp == NULL)
     {
-        printf("ÎÄ¼ş´ò¿ª´íÎó,°´ÈÎÒâ¼ü¼ÌĞø...\n");
+        printf("æ–‡ä»¶æ‰“å¼€é”™è¯¯,æŒ‰ä»»æ„é”®ç»§ç»­...\n");
         getchar();
         getchar();
         exit(0);
     }
 
-    printf("ÓÃ»§Ãû: ");
+    printf("ç”¨æˆ·å: ");
     scanf("%s", name);
 
-    /*ÅĞ¶ÏÓÃ»§ÃûÊÇ·ñ´æÔÚ*/
-    while(fscanf(fp, "%s%s", tname, tpasswd) != EOF)
+    /*åˆ¤æ–­ç”¨æˆ·åæ˜¯å¦å­˜åœ¨*/
+    while(fscanf(fp, "%s%s", tname, t) != EOF)
     {
         if(!strcmp(tname, name))
         {
-            printf("¸ÃÓÃ»§ÃûÒÑ´æÔÚ£¬°´ÈÎÒâ¼ü¼ÌĞø...\n");
-            getch();
+            printf("è¯¥ç”¨æˆ·åå·²å­˜åœ¨ï¼ŒæŒ‰ä»»æ„é”®ç»§ç»­...\n");
+            getchar();
+            getchar();
             return;
         }
     }
     while(1)
     {
-        printf("\nÇëÊäÈëÃÜÂë: ");
-        passwd_input(passwd);
-
-        printf("\nÇëÈ·ÈÏÃÜÂë: ");
-        passwd_input(tpasswd);
-
-        if(!strcmp(passwd, tpasswd))//×¢²á³É¹¦
+        passwd = getpass("è¯·è¾“å…¥å¯†ç :\n");
+        tpasswd = getpass("è¯·ç¡®è®¤å¯†ç :\n");
+        if(!strcmp(passwd, tpasswd))//æ³¨å†ŒæˆåŠŸ
         {
             fprintf(fp, "%s %s\n", name, passwd);
-            printf("\n×¢²á³É¹¦!    °´ÈÎÒâ¼ü¼ÌĞø...\n");
-            getch();
+            printf("\næ³¨å†ŒæˆåŠŸ!    æŒ‰ä»»æ„é”®ç»§ç»­...\n");
+            getchar();
+            getchar();
             fclose(fp);
             return;
         }
         else
         {
-            printf("\nÁ½´ÎÃÜÂë²»Í¬,  °´ÈÎÒâ¼ü¼ÌĞø...\n");
-            getch();
+            printf("\nä¸¤æ¬¡å¯†ç ä¸åŒ,  æŒ‰ä»»æ„é”®ç»§ç»­...\n");
+            getchar();
+            getchar();
         }
     }
 }
 
-/*Òş²ØÊäÈëÃÜÂë*/
+/*éšè—è¾“å…¥å¯†ç */
+/*
+ *  windowsä¸‹ 
+
 void passwd_input(char passwd[])
 {
     int i;
 
-    for(i = 0; (passwd[i] = getch()) && (i < PASSWD_MAX) && passwd[i] != '\r'; i++)//Òş²ØÃÜÂë
+    for(i = 0; (passwd[i] = getch()) && (i < PASSWD_MAX) && passwd[i] != '\r'; i++)//éšè—å¯†ç 
     {
-        if(passwd[i] == 8)    //É¾³ıÇ°Ò»Î»ÃÜÂë
+        if(passwd[i] == 8)    //åˆ é™¤å‰ä¸€ä½å¯†ç 
         {
             i -= 2;
-            printf("\b \b");  //É¾³ıÇ°Ò»Î» '*'
+            printf("\b \b");  //åˆ é™¤å‰ä¸€ä½ '*'
         }
         else
             printf("*");
@@ -140,10 +141,15 @@ void passwd_input(char passwd[])
         if(i >= PASSWD_MAX)
         {
             system("cls");
-            printf("ÃÜÂë³¤¶È¹ı³¤£¬£¨%dÎ»ÒÔÄÚ£©¡£ °´ÈÎÒâ¼ü¼ÌĞø...\n", PASSWD_MAX);
+            printf("å¯†ç é•¿åº¦è¿‡é•¿ï¼Œï¼ˆ%dä½ä»¥å†…ï¼‰ã€‚ æŒ‰ä»»æ„é”®ç»§ç»­...\n", PASSWD_MAX);
             Register();
         }
     }
-    passwd[i]  = 0;     //Ò»¶¨ÒªÓĞÌí¼Ó½áÊø·û
+    passwd[i]  = 0;     //ä¸€å®šè¦æœ‰æ·»åŠ ç»“æŸç¬¦
 }
+*/
 
+void passwd_input(char *passwd)
+{
+    passwd = getpass("");
+}

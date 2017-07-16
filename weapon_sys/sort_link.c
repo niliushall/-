@@ -5,29 +5,39 @@ int menu_BubbleSort(void)
     int choice;
     do
     {
-        system("cls");
+        system("clear");
         printf("\t\t\t===================================\n");
-        printf("\t\t\t===       ÇëÑ¡Ôñ°´ÄÄÏîÅÅÐò      ===\n");
+        printf("\t\t\t===       è¯·é€‰æ‹©æŒ‰å“ªé¡¹æŽ’åº      ===\n");
         printf("\t\t\t===                             ===\n");
-        printf("\t\t\t===          1.Ç¹ÐµÃû³Æ         ===\n");
-        printf("\t\t\t===          2.Ç¹ÐµÍþÁ¦         ===\n");
-        printf("\t\t\t===          3.Ç¹Ðµ¾«×¼         ===\n");
-        printf("\t\t\t===          0.ÍË³ö             ===\n");
+        printf("\t\t\t===          1.æžªæ¢°åç§°         ===\n");
+        printf("\t\t\t===          2.æžªæ¢°åœ°å€         ===\n");
+        printf("\t\t\t===          3.æžªæ¢°è®¾è®¡è€…       ===\n");
+        printf("\t\t\t===          4.æžªæ¢°å¨åŠ›         ===\n");
+        printf("\t\t\t===          5.æžªæ¢°ä¾¿æº         ===\n");
+        printf("\t\t\t===          6.æžªæ¢°ç²¾å‡†         ===\n");
+        printf("\t\t\t===          7.æžªæ¢°ç¨³å®šæ€§       ===\n");
+        printf("\t\t\t===          8.æžªæ¢°å°„é€Ÿ         ===\n");
+        printf("\t\t\t===          0.é€€å‡º             ===\n");
         printf("\t\t\t===                             ===\n");
         printf("\t\t\t===================================\n");
 
-        printf("\t\t\tÇëÊäÈëÊý×Ö0~6: ");
+        printf("\t\t\tè¯·è¾“å…¥æ•°å­—0~6: ");
         scanf("%d", &choice);
 
         switch(choice)
         {
-            case 0:return;
+            case 0:return 0;
             case 1:sort_name();Print_all();break;
-            case 2:sort_wei();Print_all();break;
-            case 3:sort_jing();Print_all();break;
-            default:printf("Êý×ÖÔ½½ç£¬°´ÈÎÒâ¼ü¼ÌÐø...\n");
-                    fflush(stdin);//±ÜÃâÊäÈë×Ö·ûÐÍÊý¾Ý
-                    getchar();
+            case 2:sort_addr();Print_all();break;
+            case 3:sort_designer();Print_all();break;
+            case 4:sort_wei();Print_all();break;
+            case 5:sort_bian();Print_all();break;
+            case 6:sort_jing();Print_all();break;
+            case 7:sort_wen();Print_all();break;
+            case 8:sort_she();Print_all();break;
+            default:printf("æ•°å­—è¶Šç•Œï¼ŒæŒ‰ä»»æ„é”®ç»§ç»­...\n");
+            fflush(stdin);//é¿å…è¾“å…¥å­—ç¬¦åž‹æ•°æ®
+            getchar();
         }
     }while(choice);
 }
@@ -38,14 +48,14 @@ void sort_name(void)
     firearms *f, *p, *x, *y ,*pHead;
     f = NULL;
     pHead = read_from_file();
-    //ÅÐ¶ÏÊÇ·ñÖ»ÓÐÒ»¸öÔªËØ»òÕßÃ»ÓÐÔªËØ
+    //åˆ¤æ–­æ˜¯å¦åªæœ‰ä¸€ä¸ªå…ƒç´ æˆ–è€…æ²¡æœ‰å…ƒç´ 
     if(pHead -> next == NULL || pHead -> next -> next == NULL)
     {
         return;
     }
     while(f != pHead->next->next)
     {
-        //Íâ²ãÊÇN - 1´ÎÑ­»·,ÉýÐò
+        //å¤–å±‚æ˜¯N - 1æ¬¡å¾ªçŽ¯,å‡åº
         for(p = pHead; p -> next -> next != f; p = p -> next)
         {
             if(strcmp(p -> next -> name, p -> next -> next -> name) > 0)
@@ -63,7 +73,7 @@ void sort_name(void)
     fp = fopen("information.txt", "wt");
     if(fp == NULL)
     {
-        printf("ÎÄ¼þ´ò¿ª´íÎó, °´ÈÎÒâ¼ü¼ÌÐø...\n");
+        printf("æ–‡ä»¶æ‰“å¼€é”™è¯¯, æŒ‰ä»»æ„é”®ç»§ç»­...\n");
         getchar();
         getchar();
         exit(0);
@@ -71,28 +81,118 @@ void sort_name(void)
 
     p = pHead->next;
     while(p != NULL)
-    {
-        int i=0;
-        fprintf(fp, "%s %s %s %d %d %d %d %d\n", p->name, p->addr, p->designer, p->wei, p->bian, p->jing, p->wen, p->she);
-        p = p->next;
+    {     
+        fprintf(fp, "%s %s %s %d %d %d %d %d\n",  p->name, p->addr, p->designer, p->wei, p->bian, p->jing, p->wen, p->she);
+   p = p->next; 
     }
     fclose(fp);
 }
 
-void sort_wei(void)
+void sort_addr(void)
 {
     FILE *fp;
     firearms *f, *p, *x, *y ,*pHead;
     f = NULL;
     pHead = read_from_file();
-    //ÅÐ¶ÏÊÇ·ñÖ»ÓÐÒ»¸öÔªËØ»òÕßÃ»ÓÐÔªËØ
+    //åˆ¤æ–­æ˜¯å¦åªæœ‰ä¸€ä¸ªå…ƒç´ æˆ–è€…æ²¡æœ‰å…ƒç´ 
     if(pHead -> next == NULL || pHead -> next -> next == NULL)
     {
         return;
     }
     while(f != pHead->next->next)
     {
-        //Íâ²ãÊÇN - 1´ÎÑ­»·,ÉýÐò
+        //å¤–å±‚æ˜¯N - 1æ¬¡å¾ªçŽ¯,å‡åº
+        for(p = pHead; p -> next -> next != f; p = p -> next)
+        {
+            if(strcmp(p -> next -> addr, p -> next -> next -> addr) > 0)
+            {
+                x = p -> next;
+                y = p -> next -> next;
+                p -> next = y;
+                x -> next = y -> next;
+                y -> next = x;
+            }
+        }
+        f = p -> next;
+    }
+
+    fp = fopen("information.txt", "wt");
+    if(fp == NULL)
+    {
+        printf("æ–‡ä»¶æ‰“å¼€é”™è¯¯, æŒ‰ä»»æ„é”®ç»§ç»­...\n");
+        getchar();
+        getchar();
+        exit(0);
+    }
+
+    p = pHead->next;
+    while(p != NULL)
+    {     
+        fprintf(fp, "%s %s %s %d %d %d %d %d\n",  p->name, p->addr, p->designer, p->wei, p->bian, p->jing, p->wen, p->she);
+        p = p->next; 
+    }
+    fclose(fp);
+}
+
+void sort_designer(void)
+{
+    FILE *fp;
+    firearms *f, *p, *x, *y ,*pHead;
+    f = NULL;
+    pHead = read_from_file();
+    //åˆ¤æ–­æ˜¯å¦åªæœ‰ä¸€ä¸ªå…ƒç´ æˆ–è€…æ²¡æœ‰å…ƒç´ 
+    if(pHead -> next == NULL || pHead -> next -> next == NULL)
+    {
+        return;
+    }
+    while(f != pHead->next->next)
+    {
+        //å¤–å±‚æ˜¯N - 1æ¬¡å¾ªçŽ¯,å‡åº
+        for(p = pHead; p -> next -> next != f; p = p -> next)
+        {
+            if(strcmp(p -> next -> designer, p -> next -> next -> designer) > 0)
+            {
+                x = p -> next;
+                y = p -> next -> next;
+                p -> next = y;
+                x -> next = y -> next;
+                y -> next = x;
+            }
+        }
+        f = p -> next;
+    }
+
+    fp = fopen("information.txt", "wt");
+    if(fp == NULL)
+    {
+        printf("æ–‡ä»¶æ‰“å¼€é”™è¯¯, æŒ‰ä»»æ„é”®ç»§ç»­...\n");
+        getchar();
+        getchar();
+        exit(0);
+    }
+
+    p = pHead->next;
+    while(p != NULL)
+    {     
+        fprintf(fp, "%s %s %s %d %d %d %d %d\n",  p->name, p->addr, p->designer, p->wei, p->bian, p->jing, p->wen, p->she);
+        p = p->next; 
+    }
+    fclose(fp);
+}
+void sort_wei(void)
+{
+    FILE *fp;
+    firearms *f, *p, *x, *y ,*pHead;
+    f = NULL;
+    pHead = read_from_file();
+    //åˆ¤æ–­æ˜¯å¦åªæœ‰ä¸€ä¸ªå…ƒç´ æˆ–è€…æ²¡æœ‰å…ƒç´ 
+    if(pHead -> next == NULL || pHead -> next -> next == NULL)
+    {
+        return;
+    }
+    while(f != pHead->next->next)
+    {
+        //å¤–å±‚æ˜¯N - 1æ¬¡å¾ªçŽ¯,å‡åº
         for(p = pHead; p -> next -> next != f; p = p -> next)
         {
             if(p -> next -> wei > p -> next -> next -> wei)
@@ -110,7 +210,7 @@ void sort_wei(void)
     fp = fopen("information.txt", "wt");
     if(fp == NULL)
     {
-        printf("ÎÄ¼þ´ò¿ª´íÎó, °´ÈÎÒâ¼ü¼ÌÐø...\n");
+        printf("æ–‡ä»¶æ‰“å¼€é”™è¯¯, æŒ‰ä»»æ„é”®ç»§ç»­...\n");
         getchar();
         getchar();
         exit(0);
@@ -118,10 +218,9 @@ void sort_wei(void)
 
     p = pHead->next;
     while(p != NULL)
-    {
-        int i=0;
-        fprintf(fp, "%s %s %s %d %d %d %d %d\n", p->name, p->addr, p->designer, p->wei, p->bian, p->jing, p->wen, p->she);
-        p = p->next;
+    {     
+        fprintf(fp, "%s %s %s %d %d %d %d %d\n",  p->name, p->addr, p->designer, p->wei, p->bian, p->jing, p->wen, p->she);
+        p = p->next; 
     }
     fclose(fp);
 }
@@ -132,14 +231,14 @@ void sort_jing(void)
     firearms *f, *p, *x, *y ,*pHead;
     f = NULL;
     pHead = read_from_file();
-    //ÅÐ¶ÏÊÇ·ñÖ»ÓÐÒ»¸öÔªËØ»òÕßÃ»ÓÐÔªËØ
+    //åˆ¤æ–­æ˜¯å¦åªæœ‰ä¸€ä¸ªå…ƒç´ æˆ–è€…æ²¡æœ‰å…ƒç´ 
     if(pHead -> next == NULL || pHead -> next -> next == NULL)
     {
         return;
     }
     while(f != pHead->next->next)
     {
-        //Íâ²ãÊÇN - 1´ÎÑ­»·,ÉýÐò
+        //å¤–å±‚æ˜¯N - 1æ¬¡å¾ªçŽ¯,å‡åº
         for(p = pHead; p -> next -> next != f; p = p -> next)
         {
             if(p -> next -> jing > p -> next -> next -> jing)
@@ -157,7 +256,7 @@ void sort_jing(void)
     fp = fopen("information.txt", "wt");
     if(fp == NULL)
     {
-        printf("ÎÄ¼þ´ò¿ª´íÎó, °´ÈÎÒâ¼ü¼ÌÐø...\n");
+        printf("æ–‡ä»¶æ‰“å¼€é”™è¯¯, æŒ‰ä»»æ„é”®ç»§ç»­...\n");
         getchar();
         getchar();
         exit(0);
@@ -165,10 +264,147 @@ void sort_jing(void)
 
     p = pHead->next;
     while(p != NULL)
+    {     
+        fprintf(fp, "%s %s %s %d %d %d %d %d\n",  p->name, p->addr, p->designer, p->wei, p->bian, p->jing, p->wen, p->she);
+        p = p->next; 
+    }
+    fclose(fp);
+}
+
+void sort_bian(void)
+{
+    FILE *fp;
+    firearms *f, *p, *x, *y ,*pHead;
+    f = NULL;
+    pHead = read_from_file();
+    //åˆ¤æ–­æ˜¯å¦åªæœ‰ä¸€ä¸ªå…ƒç´ æˆ–è€…æ²¡æœ‰å…ƒç´ 
+    if(pHead -> next == NULL || pHead -> next -> next == NULL)
     {
-        int i=0;
-        fprintf(fp, "%s %s %s %d %d %d %d %d\n", p->name, p->addr, p->designer, p->wei, p->bian, p->jing, p->wen, p->she);
-        p = p->next;
+        return;
+    }
+    while(f != pHead->next->next)
+    {
+        //å¤–å±‚æ˜¯N - 1æ¬¡å¾ªçŽ¯,å‡åº
+        for(p = pHead; p -> next -> next != f; p = p -> next)
+        {
+            if(p -> next -> bian > p -> next -> next -> bian)
+            {
+                x = p -> next;
+                y = p -> next -> next;
+                p -> next = y;
+                x -> next = y -> next;
+                y -> next = x;
+            }
+        }
+        f = p -> next;
+    }
+
+    fp = fopen("information.txt", "wt");
+    if(fp == NULL)
+    {
+        printf("æ–‡ä»¶æ‰“å¼€é”™è¯¯, æŒ‰ä»»æ„é”®ç»§ç»­...\n");
+        getchar();
+        getchar();
+        exit(0);
+    }
+
+    p = pHead->next;
+    while(p != NULL)
+    {     
+        fprintf(fp, "%s %s %s %d %d %d %d %d\n",  p->name, p->addr, p->designer, p->wei, p->bian, p->jing, p->wen, p->she);
+        p = p->next; 
+    }
+    fclose(fp);
+}
+
+void sort_wen(void)
+{
+    FILE *fp;
+    firearms *f, *p, *x, *y ,*pHead;
+    f = NULL;
+    pHead = read_from_file();
+    //åˆ¤æ–­æ˜¯å¦åªæœ‰ä¸€ä¸ªå…ƒç´ æˆ–è€…æ²¡æœ‰å…ƒç´ 
+    if(pHead -> next == NULL || pHead -> next -> next == NULL)
+    {
+        return;
+    }
+    while(f != pHead->next->next)
+    {
+        //å¤–å±‚æ˜¯N - 1æ¬¡å¾ªçŽ¯,å‡åº
+        for(p = pHead; p -> next -> next != f; p = p -> next)
+        {
+            if(p -> next -> wen > p -> next -> next -> wen)
+            {
+                x = p -> next;
+                y = p -> next -> next;
+                p -> next = y;
+                x -> next = y -> next;
+                y -> next = x;
+            }
+        }
+        f = p -> next;
+    }
+
+    fp = fopen("information.txt", "wt");
+    if(fp == NULL)
+    {
+        printf("æ–‡ä»¶æ‰“å¼€é”™è¯¯, æŒ‰ä»»æ„é”®ç»§ç»­...\n");
+        getchar();
+        getchar();
+        exit(0);
+    }
+
+    p = pHead->next;
+    while(p != NULL)
+    {     
+        fprintf(fp, "%s %s %s %d %d %d %d %d\n",  p->name, p->addr, p->designer, p->wei, p->bian, p->jing, p->wen, p->she);
+        p = p->next; 
+    }
+    fclose(fp);
+}
+
+void sort_she(void)
+{
+    FILE *fp;
+    firearms *f, *p, *x, *y ,*pHead;
+    f = NULL;
+    pHead = read_from_file();
+    //åˆ¤æ–­æ˜¯å¦åªæœ‰ä¸€ä¸ªå…ƒç´ æˆ–è€…æ²¡æœ‰å…ƒç´ 
+    if(pHead -> next == NULL || pHead -> next -> next == NULL)
+    {
+        return;
+    }
+    while(f != pHead->next->next)
+    {
+        //å¤–å±‚æ˜¯N - 1æ¬¡å¾ªçŽ¯,å‡åº
+        for(p = pHead; p -> next -> next != f; p = p -> next)
+        {
+            if(p -> next -> she > p -> next -> next -> she)
+            {
+                x = p -> next;
+                y = p -> next -> next;
+                p -> next = y;
+                x -> next = y -> next;
+                y -> next = x;
+            }
+        }
+        f = p -> next;
+    }
+
+    fp = fopen("information.txt", "wt");
+    if(fp == NULL)
+    {
+        printf("æ–‡ä»¶æ‰“å¼€é”™è¯¯, æŒ‰ä»»æ„é”®ç»§ç»­...\n");
+        getchar();
+        getchar();
+        exit(0);
+    }
+
+    p = pHead->next;
+    while(p != NULL)
+    {     
+        fprintf(fp, "%s %s %s %d %d %d %d %d\n",  p->name, p->addr, p->designer, p->wei, p->bian, p->jing, p->wen, p->she);
+        p = p->next; 
     }
     fclose(fp);
 }

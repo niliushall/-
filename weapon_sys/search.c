@@ -6,136 +6,141 @@ void Search(void)
 
     do
     {
-        system("cls");
+        system("clear");
         printf("\t\t\t=========================================\n");
-        printf("\t\t\t===     »¶Ó­À´µ½Ç¹ĞµĞÅÏ¢¹ÜÀíÏµÍ³      ===\n");
+        printf("\t\t\t===     æ¬¢è¿æ¥åˆ°æªæ¢°ä¿¡æ¯ç®¡ç†ç³»ç»Ÿ      ===\n");
         printf("\t\t\t===                                   ===\n");
-        printf("\t\t\t===          1.°´Ãû³Æ²éÑ¯             ===\n");
-        printf("\t\t\t===          2.°´²úµØ²éÑ¯             ===\n");
-        printf("\t\t\t===          3.°´Éè¼ÆÕß²éÑ¯           ===\n");
-        printf("\t\t\t===          0.ÍË³ö                   ===\n");
+        printf("\t\t\t===          1.æŒ‰åç§°æŸ¥è¯¢             ===\n");
+        printf("\t\t\t===          2.æŒ‰äº§åœ°æŸ¥è¯¢             ===\n");
+        printf("\t\t\t===          3.æŒ‰è®¾è®¡è€…æŸ¥è¯¢           ===\n");
+        printf("\t\t\t===          0.é€€å‡º                   ===\n");
         printf("\t\t\t===                                   ===\n");
         printf("\t\t\t=========================================\n\n\n");
 
-        printf("ÇëÔÚ0~3ÖĞÑ¡Ôñ£¬ÒÔ»Ø³µ¼ü½áÊø\n");
+        printf("è¯·åœ¨0~3ä¸­é€‰æ‹©ï¼Œä»¥å›è½¦é”®ç»“æŸ\n");
         scanf("%d", &choice);
 
         switch(choice)
         {
-            case 0:return 0;
+            case 0:return;
             case 1:search_name();break;
             case 2:search_addr();break;
             case 3:search_designer();break;
             default:
-                printf("³¬³ö·¶Î§, °´ÈÎÒâ¼ü¼ÌĞø...\n");
-                getch();
+                printf("è¶…å‡ºèŒƒå›´, æŒ‰ä»»æ„é”®ç»§ç»­...\n");
+                getchar();
+                getchar();
         }
     }while(choice);
 }
 
-/*°´Ãû³Æ²éÑ¯*/
+/*æŒ‰åç§°æŸ¥è¯¢*/
 void search_name(void)
 {
-    int flag = 0;   //ÅĞ¶ÏÊÇ·ñ´æÔÚËù²éĞÅÏ¢
+    int flag = 0;   //åˆ¤æ–­æ˜¯å¦å­˜åœ¨æ‰€æŸ¥ä¿¡æ¯
     char name[NAME_MAX];
     firearms *pHead = NULL, *p = NULL;
     pHead = read_from_file();
 
-    printf("ÇëÊäÈëÒª²éÑ¯µÄÇ¹ĞµÃû³Æ:\n");
+    printf("è¯·è¾“å…¥è¦æŸ¥è¯¢çš„æªæ¢°åç§°:\n");
     fflush(stdin);
-    gets(name);
-    system("cls");
+    scanf("%s", name);
+    system("clear");
 
-    printf("%-15s%-12s%-18s%-6s%-6s%-6s%-6s%-6s\n", "Ç¹ĞµÃû³Æ", "Ç¹Ğµ²úµØ", "Éè¼ÆÕß", "ÍşÁ¦", "±ãĞ¯", "¾«×¼", "ÎÈ¶¨", "ÉäËÙ");
-
-    for(p = pHead; p != NULL; p = p->next)
+    printf("%-15s %-12s %-18s %-15s %-15s %-15s %-15s %-15s\n\n", "name", "address", "designer", "power", "portability", "precision", "stability", "rate");
+    for(p = pHead->next; p != NULL; p = p->next)
     {
         if(!strcmp(name, p->name))
         {
             flag = 1;
-            printf("%-15s%-12s%-18s%-6d%-6d%-6d%-6d%-6d\n",  p->name, p->addr, p->designer, p->wei, p->bian, p->jing, p->wen, p->she);
+            printf("%-15s %-12s %-18s %-15d %-15d %-15d %-15d %-15d\n",  p->name, p->addr, p->designer, p->wei, p->bian, p->jing, p->wen, p->she);
         }
     }
 
     if(!flag)
     {
-        printf("\n\nÎÄ¼şÄÚÃ»ÓĞ¸ÃÇ¹ĞµĞÅÏ¢, °´ÈÎÒâ¼ü¼ÌĞø...\n");
-        getch();
+        printf("\n\næ–‡ä»¶å†…æ²¡æœ‰è¯¥æªæ¢°ä¿¡æ¯, æŒ‰ä»»æ„é”®ç»§ç»­...\n");
+        getchar();
+        getchar();
         return;
     }
-    printf("\n\nÄÚÈİ²éÑ¯Íê±Ï, °´ÈÎÒâ¼ü¼ÌĞø...\n");
-    getch();
+    printf("\n\nå†…å®¹æŸ¥è¯¢å®Œæ¯•, æŒ‰ä»»æ„é”®ç»§ç»­...\n");
+    getchar();
+    getchar();
     return;
 }
 
-/*°´µØÖ·²éÑ¯*/
+/*æŒ‰åœ°å€æŸ¥è¯¢*/
 void search_addr(void)
 {
-    int flag = 0;   //ÅĞ¶ÏÊÇ·ñ´æÔÚËù²éĞÅÏ¢
+    int flag = 0;   //åˆ¤æ–­æ˜¯å¦å­˜åœ¨æ‰€æŸ¥ä¿¡æ¯
     char addr[12];
     firearms *pHead = NULL, *p = NULL;
     pHead = read_from_file();
 
-    printf("ÇëÊäÈëÒª²éÑ¯µÄÇ¹Ğµ²úµØ:\n");
-    fflush(stdin);  //Çå¿ÕÊäÈë»º³åÇø
-    gets(addr);
-    system("cls");
+    printf("è¯·è¾“å…¥è¦æŸ¥è¯¢çš„æªæ¢°äº§åœ°:\n");
+    fflush(stdin);  //æ¸…ç©ºè¾“å…¥ç¼“å†²åŒº
+    scanf("%s", addr);
+    system("clear");
 
-    printf("%-15s%-12s%-18s%-6s%-6s%-6s%-6s%-6s\n", "Ç¹ĞµÃû³Æ", "Ç¹Ğµ²úµØ", "Éè¼ÆÕß", "ÍşÁ¦", "±ãĞ¯", "¾«×¼", "ÎÈ¶¨", "ÉäËÙ");
-
-    for(p = pHead; p != NULL; p = p->next)
+    printf("%-15s %-12s %-18s %-15s %-15s %-15s %-15s %-15s\n\n", "name", "address", "designer", "power", "portability", "precision", "stability", "rate");
+    for(p = pHead->next; p != NULL; p = p->next)
     {
         if(!strcmp(addr, p->addr))
         {
             flag = 1;
-            printf("%-15s%-12s%-18s%-6d%-6d%-6d%-6d%-6d\n",  p->name, p->addr, p->designer, p->wei, p->bian, p->jing, p->wen, p->she);
+            printf("%-15s %-12s %-18s %-15d %-15d %-15d %-15d %-15d\n",  p->name, p->addr, p->designer, p->wei, p->bian, p->jing, p->wen, p->she);
         }
     }
 
     if(!flag)
     {
-        system("cls");
-        printf("\n\nÎÄ¼şÄÚÃ»ÓĞ¸ÃÇ¹ĞµĞÅÏ¢, °´ÈÎÒâ¼ü¼ÌĞø...\n");
-        getch();
+        system("clear");
+        printf("\n\næ–‡ä»¶å†…æ²¡æœ‰è¯¥æªæ¢°ä¿¡æ¯, æŒ‰ä»»æ„é”®ç»§ç»­...\n");
+        getchar();
+        getchar();
         return;
     }
-    printf("\n\nÄÚÈİ²éÑ¯Íê±Ï, °´ÈÎÒâ¼ü¼ÌĞø...\n");
-    getch();
+    printf("\n\nå†…å®¹æŸ¥è¯¢å®Œæ¯•, æŒ‰ä»»æ„é”®ç»§ç»­...\n");
+    getchar();
+    getchar();
+
     return;
 }
 
-/*°´Éè¼ÆÕß²éÑ¯*/
+/*æŒ‰è®¾è®¡è€…æŸ¥è¯¢*/
 void search_designer(void)
 {
-    int flag = 0;   //ÅĞ¶ÏÊÇ·ñ´æÔÚËù²éĞÅÏ¢
+    int flag = 0;   //åˆ¤æ–­æ˜¯å¦å­˜åœ¨æ‰€æŸ¥ä¿¡æ¯
     char designer[12];
     firearms *pHead = NULL, *p = NULL;
     pHead = read_from_file();
 
-    printf("ÇëÊäÈëÒª²éÑ¯µÄÇ¹ĞµÉè¼ÆÕß:\n");
-    fflush(stdin);  //Çå¿ÕÊäÈë»º³åÇø
-    gets(designer);
-    system("cls");
+    printf("è¯·è¾“å…¥è¦æŸ¥è¯¢çš„æªæ¢°è®¾è®¡è€…:\n");
+    fflush(stdin);  //æ¸…ç©ºè¾“å…¥ç¼“å†²åŒº
+    scanf("%s", designer);
+    system("clear");
 
-    printf("%-15s%-12s%-18s%-6s%-6s%-6s%-6s%-6s\n", "Ç¹ĞµÃû³Æ", "Ç¹Ğµ²úµØ", "Éè¼ÆÕß", "ÍşÁ¦", "±ãĞ¯", "¾«×¼", "ÎÈ¶¨", "ÉäËÙ");
-
-    for(p = pHead; p != NULL; p = p->next)
+    printf("%-15s %-12s %-18s %-15s %-15s %-15s %-15s %-15s\n\n", "name", "address", "designer", "power", "portability", "precision", "stability", "rate");
+    for(p = pHead->next; p != NULL; p = p->next)
     {
         if(!strcmp(designer, p->designer))
         {
             flag = 1;
-            printf("%-15s%-12s%-18s%-6d%-6d%-6d%-6d%-6d\n",  p->name, p->addr, p->designer, p->wei, p->bian, p->jing, p->wen, p->she);
+            printf("%-15s %-12s %-18s %-15d %-15d %-15d %-15d %-15d\n",  p->name, p->addr, p->designer, p->wei, p->bian, p->jing, p->wen, p->she);
         }
     }
 
     if(!flag)
     {
-        system("cls");
-        printf("\n\nÎÄ¼şÄÚÃ»ÓĞ¸ÃÇ¹ĞµĞÅÏ¢, °´ÈÎÒâ¼ü¼ÌĞø...\n");
-        getch();
+        system("clear");
+        printf("\n\næ–‡ä»¶å†…æ²¡æœ‰è¯¥æªæ¢°ä¿¡æ¯, æŒ‰ä»»æ„é”®ç»§ç»­...\n");
+        getchar();
+        getchar();
         return;
     }
-    printf("\n\nÄÚÈİ²éÑ¯Íê±Ï, °´ÈÎÒâ¼ü¼ÌĞø...\n");
-    getch();
+    printf("\n\nå†…å®¹æŸ¥è¯¢å®Œæ¯•, æŒ‰ä»»æ„é”®ç»§ç»­...\n");
+    getchar();
+    getchar();
     return;
 }

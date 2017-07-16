@@ -1,42 +1,59 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define NAME_MAX 10    //ÓÃ»§Ãû×î´ó³¤¶È
-#define PASSWD_MAX 15  //ÃÜÂë×î´ó³¤¶È
-#define NAME 12        //Ç¹ĞµÃû³Æ×î´ó³¤¶È
-#define ADDR 10        //µØÖ·×î´ó³¤¶È
-#define DESIGNER 15    //Éè¼ÆÕßĞÕÃû×î´ó³¤¶È
+#include <unistd.h>
+#define NAME_MAX 10    //ç”¨æˆ·åæœ€å¤§é•¿åº¦
+#define PASSWD_MAX 15  //å¯†ç æœ€å¤§é•¿åº¦
+#define NAME 12        //æªæ¢°åç§°æœ€å¤§é•¿åº¦
+#define ADDR 10        //åœ°å€æœ€å¤§é•¿åº¦
+#define DESIGNER 15    //è®¾è®¡è€…å§“åæœ€å¤§é•¿åº¦
 
 typedef struct weapon
 {
-    char name[NAME];//Ãû³Æ
-    char addr[ADDR];//²úµØ
-    char designer[DESIGNER];//Éè¼ÆÕß
-    int wei;//ÍşÁ¦
-    int bian;//±ãĞ¯
-    int jing;//¾«×¼
-    int wen;//ÎÈ¶¨
-    int she;//ÉäËÙ
-    struct weapon *next;//µØÖ·Óò
+    char name[NAME];//åç§°
+    char addr[ADDR];//äº§åœ°
+    char designer[DESIGNER];//è®¾è®¡è€…
+    int wei;//å¨åŠ›
+    int bian;//ä¾¿æº
+    int jing;//ç²¾å‡†
+    int wen;//ç¨³å®š
+    int she;//å°„é€Ÿ
+    struct weapon *next;//åœ°å€åŸŸ
 }firearms;
 
-void menu_main();//Ö÷½çÃæ
-void menu_log();//µÇÂ¼Ö÷½çÃæ
-void Search();//²éÑ¯½çÃæ
-void logIn();//µÇÂ½
-void Register();//×¢²á
+void menu_main();//ä¸»ç•Œé¢
+void menu_log(void);//ç™»å½•æ³¨å†Œç•Œé¢
+int menu_modify(void);//ä¿®æ”¹é€‰æ‹©ç•Œé¢
+void Search();//æŸ¥è¯¢ç•Œé¢
+void logIn();//ç™»é™†
+void Register();//æ³¨å†Œ
 
-void search_name(void);//Ãû³Æ²éÑ¯
-void search_addr(void);//²úµØ²éÑ¯
-void search_designer(void);//Éè¼ÆÕß²éÑ¯
+void Modify(void);
+void Modify_name(void);//æŒ‰åç§°ä¿®æ”¹
+void Modify_addr(void);//æŒ‰åœ°å€ä¿®æ”¹
+void Modify_designer(void);//æŒ‰è®¾è®¡è€…ä¿®æ”¹
 
-firearms *Add(void);//Ìí¼ÓĞÅÏ¢
-firearms *Create(void);//ĞÂ½¨Á´±í
-firearms *read_from_file(void);//´ÓÎÄ¼ş¶ÁÈ¡²¢´´½¨Á´±í
-void Print_all(void);//¶ÁÈ¡ÎÄ¼şĞÅÏ¢²¢Êä³ö
-void passwd_input(char *);//ÊäÈëÃÜÂë²¢Òş²Ø
-void Modify(void);//ĞŞ¸Ä
-int menu_BubbleSort(void);//Á´±íÅÅĞò²Ëµ¥
-void sort_name(void);//°´ĞÕÃûÅÅĞò
-void sort_wei(void);//°´ÍşÁ¦ÅÅĞò
-void sort_jing(void);//°´¾«×¼¶ÈÅÅĞò
+void search_name(void);//åç§°æŸ¥è¯¢
+void search_addr(void);//äº§åœ°æŸ¥è¯¢
+void search_designer(void);//è®¾è®¡è€…æŸ¥è¯¢
+
+firearms *Add(void);//æ·»åŠ ä¿¡æ¯
+firearms *Create(void);//æ–°å»ºé“¾è¡¨
+firearms *read_from_file(void);//ä»æ–‡ä»¶è¯»å–å¹¶åˆ›å»ºé“¾è¡¨
+void Print_all(void);//è¯»å–æ–‡ä»¶ä¿¡æ¯å¹¶è¾“å‡º
+void passwd_input(char *);//è¾“å…¥å¯†ç å¹¶éšè—
+int menu_BubbleSort(void);//é“¾è¡¨æ’åºèœå•
+
+void Delete(void);
+void delete_name(void);
+void delete_addr(void);
+void delete_designer(void);
+
+void sort_name(void);//æŒ‰å§“åæ’åº
+void sort_addr(void);//æŒ‰åœ°å€æ’åº
+void sort_designer(void);//æŒ‰è®¾è®¡è€…æ’åº
+void sort_wei(void);//æŒ‰å¨åŠ›æ’åº
+void sort_jing(void);//æŒ‰ç²¾å‡†åº¦æ’åº
+void sort_bian(void);//æŒ‰ä¾¿æºåº¦æ’åº
+void sort_wen(void);//æŒ‰ç¨³å®šæ€§æ’åº
+void sort_she(void);//æŒ‰å°„é€Ÿæ’åº
